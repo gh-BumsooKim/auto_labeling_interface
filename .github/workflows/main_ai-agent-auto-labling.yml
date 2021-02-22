@@ -35,4 +35,4 @@ jobs:
         app-name: 'ai-agent-auto-labling'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_e0bef25082154cf3a718875de1ae1775 }}
-        package: '.\myapp.zip'
+        package: '.\v0.1.zip'
