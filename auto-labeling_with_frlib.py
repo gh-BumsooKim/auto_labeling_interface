@@ -24,6 +24,8 @@ def get_userID():
     window.destroy()
 
 if __name__ == "__main__":
+    AUTO = False
+    
     th = threading.Thread(target=test)
     th.start()
     
@@ -90,8 +92,8 @@ if __name__ == "__main__":
     #   ML Image Capture
     #
     
-    #cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-    #cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
     print(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     print(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
@@ -108,8 +110,8 @@ if __name__ == "__main__":
             break
         
     cap_dataset = cv2.VideoCapture(0)
-    #cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-    #cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
     print(cap_dataset.get(cv2.CAP_PROP_FRAME_WIDTH))
     print(cap_dataset.get(cv2.CAP_PROP_FRAME_HEIGHT))
     width = cap_dataset.get(cv2.CAP_PROP_FRAME_WIDTH)
@@ -117,7 +119,7 @@ if __name__ == "__main__":
     
     file_bbox = list()
     index = 0
-    max_num = 530
+    max_num = 2000
     class_name = user_id
     class_num = user_num
     
@@ -169,7 +171,6 @@ if __name__ == "__main__":
                     name = known_face_names[best_match_index]
                     #name = "Matched"
                 # END = comparision
-    
                 face_names.append(name)
     
         process_this_frame = not process_this_frame
@@ -187,8 +188,8 @@ if __name__ == "__main__":
             font = cv2.FONT_HERSHEY_DUPLEX
             cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
             
-            x=top
-            y=left
+            x=left
+            y=top
             w=right-left
             h=bottom-top
             
@@ -198,50 +199,58 @@ if __name__ == "__main__":
             H = format(round(h/height,6),".6f")
             
             #print(X, Y, W, H)
+            #print(top,bottom,right,left)
             #print(face_names)
             
         # OpenCV Haar Method
         faces = detector.detectMultiScale(gray, 1.3, 5)
         
         for (x, y, w, h) in faces:
-            cv2.rectangle(img_cv, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
             
             
         # OpenCV window imshow
         #cv2.imshow('Opencv_haar',img_cv)
         #cv2.imshow('f-r-lib', frame)
-        add_img = np.hstack((img_cv, frame))
-        cv2.imshow("window, (Quit = press 'q' / Capture = prees 'w' ", add_img)
         
-        if cv2.waitKey(1) & 0xFF == ord('w'):
+        #add_img = np.hstack((img_cv, frame))
+        cv2.imshow("window, (Quit = press 'q' / Capture = press 'w' "
+                   "/ Auto Capture = 'e'", frame)
+        
+        if AUTO == False:
+            if cv2.waitKey(1) & 0xFF == ord('e'):
+                AUTO = True
+            
+        if cv2.waitKey(1) & 0xFF == ord('w') or AUTO == True:
             if index!=max_num:
-                if class_name in face_names and len(faces) != 0:
+                if class_name in face_names : #and len(faces) != 0:
                     if len(name) != 0:
                         file_bbox.append([class_num,X,Y,W,H])
                         index+=1   
                         
                         name = output_path + class_name + "_" + str(index)
-                        cv2.imwrite(name + ".jpg" , frame)
+                        cv2.imwrite(name + ".jpg" , img_org)
                         with open(name + ".txt", 'w') as f:
                             bbox = file_bbox[index-1]
-                            f.write(str(bbox[0]) + " " + bbox[1] + " " + bbox[2] + " " + bbox[3] + " " + bbox[4])
+                            f.write(str(bbox[0]) + " " + bbox[1] + 
+                                    " " + bbox[2] + " " + bbox[3] + 
+                                    " " + bbox[4])
                             
                         print(index)
                         print(X, Y, W, H)
-                else: print("Not matched")
-                
+                else: print("Not matched")                
             else:
                 print("num_file is " + str(index))
-                print('\007')
+                print('\007') #alart
                 cap_dataset.release()
                 cv2.destroyAllWindows()
-    
-    
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+        elif cv2.waitKey(1) & 0xFF == ord('q'):
             print('\007')
             cap_dataset.release()
             cv2.destroyAllWindows()
             break
+        else: pass
     
     #cap.release()
     #cv2.destroyAllWindows()
