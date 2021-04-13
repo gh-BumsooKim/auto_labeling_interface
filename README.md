@@ -2,6 +2,14 @@
 
 auto labeling for faster-rcnn, yolo model label format
 
+## Usage
+
+```python
+import face_labeling as fl
+fl.__version__
+fl.test()
+```
+
 ## Environment
 
 - windows OS (Linux is not officially supported OS)
