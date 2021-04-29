@@ -93,7 +93,7 @@ def class_info_interface(**class_name):
             print(key, value)
             class_name_list.append(value)
         
-        #class_name_list[0] # Class Name
+        # Class Name [0]
         name_value = str()
         index_value = str()
         for i, name in enumerate(class_name_list[0]):
@@ -105,16 +105,19 @@ def class_info_interface(**class_name):
                                    column = 1,
                                    padx = 10,
                                    pady = 10)
-        
+                                   
+        # Class Index [1]
+        if len(class_name) == 2:
+            index_value = str()
+            for index in class_name_list[1]:
+                index_value = index_value + '|' + \
+                str(index) + ' \n'
+                
         ttk.Label(window, text = "| Class Name\n\n" +
                   index_value).grid(row = 3,
                                     column = 2,
                                     padx = 10,
-                                    pady = 10)                                   
-                                   
-        if len(class_name_list) == 2: # Class Index
-            #class_name_list[1]
-            pass
+                                    pady = 10)
         
         print("list")
     else:

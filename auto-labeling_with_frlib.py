@@ -90,7 +90,7 @@ if __name__ == "__main__":
     
     #
     #   ML Image Capture
-    #
+    #<kbd>w</kbd> | Capture 1 Image |
     
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
