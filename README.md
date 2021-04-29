@@ -1,8 +1,25 @@
 # face labeling
 
-auto labeling for faster-rcnn, yolo model label format
+auto face labeling for faster-rcnn, yolo model label format
+
+## Configuration
+
+- **Annotation Format**
+  1) yolo format with **txt file**
+
+  2) faster-rcnn format with **XML file**
+
+- **Language** : python3
+
+- **Interface** : tkinter
+
+- **Supported OS** : windows
+
+- **3rd-Party Packages** : [requirements.txt](https://github.com/gh-BumsooKim/face_labeling/blob/main/requirements.txt)
 
 ## Usage
+
+### High-Level API
 
 ```python
 import face_labeling as fl
@@ -24,51 +41,13 @@ Shortcut | Description |
 <kbd>w</kbd> | Capture 1 Image |
 <kbd>e</kbd> | (Auto)Capture [MAX_NUM] Image |
 
-##  Getting Started
+## Example
 
-#### 1) Install IDE
+**Auto Face Labeling**
 
-- Using Aanacond **[here](https://www.anaconda.com/)**
+- [Face Labeling with yolo format]()
 
-#### 2) Make Dir
+**Explainable Dataset**
 
-```cmd
-cd [your_dir_path]
-mkdir [dir_name]
-```
+- [Explainable Annotaion File]()
 
-#### 3) Make Virtual Envs
-
-(if you use python3 venv)
-
-```cmd
-cd [your_dir_path]
-python -m venv .venv
-source .venv/bin/activate
-```
-
-(if you use Anaconda3)
-
-```cmd
-conda create -n venv python=3.7.9
-conda activate venv
-```
-
-#### 4) Import Sub Package
-
-```cmd
-pip install -r requirements.txt
-```
-
-#### 5) Import face_labeling Package
-
-```cmd
-python -c "import face_labeling as fl"
-```
-
-#### 6) In IDE (such as Spyder)
-
-```python
-import face_labeling as fl
-fl.__version__
-```
