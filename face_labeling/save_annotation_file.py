@@ -1,8 +1,13 @@
 # Save origin image and annotation file
 
-def save_annotation_file(frame, label_format, output_path=None,
-                         class_name=0, class_num=0, index=0, 
-                         num_max=500, explain=False):
+def save_annotation_file(frame,
+                         label_format,
+                         output_path=None,
+                         class_name=0,
+                         class_num=0,
+                         index=0, 
+                         num_max=500,
+                         explain=False):
     try:
         import cv2
         import os

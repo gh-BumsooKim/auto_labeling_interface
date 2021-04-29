@@ -4,7 +4,7 @@ except ImportError as e:
     print("Opencv lib is not imported\n"
         "with ImportError :", e)
 
-def cap_init():
+def cap_init(**kwargs):
     try:
         import cv2
     except ModuleNotFoundError as e:
